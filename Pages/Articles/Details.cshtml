@@ -1,0 +1,31 @@
+@page
+@model BlogAssignment.Pages_Articles.DetailsModel
+
+@{
+    ViewData["Title"] = @Model.Article.Title;
+}
+
+<h1>
+  @Model.Article.Title
+</h1>
+<h4>
+  @Model.Article.ContributorFullName
+</h4>
+<hr />
+<p>
+  @if (Model.Article.EndDate.HasValue)
+  {
+    @Model.Article.EndDate.Value.ToString("MMMM dd, yyyy")
+  }
+</p>
+<p>
+  @Html.Raw(@Model.Article.Body)
+</p>
+@if (Model.CurrentUser != null && Model.CurrentUser.Id == Model.Article.ContributorId)
+{
+  <a asp-page="./Edit" asp-route-id="@Model.Article.ArticleId" class="btn btn-primary">Edit</a>
+  <a asp-page="./Delete" asp-route-id="@Model.Article.ArticleId" class="btn btn-primary">Delete</a>
+}
+<div>
+    <a asp-page="../Index">Back to List</a>
+</div>
